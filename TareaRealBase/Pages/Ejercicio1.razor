@@ -1,0 +1,44 @@
+@page "/Ejercicio1"
+@using Models
+<h3>Ejercicio1</h3>
+
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Apellido
+            </th>
+            <th>
+                Telefono
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (Employee emp in GetEmployees())
+        {
+            <tr>
+                <td>@emp.FirstName</td>
+                <td>@emp.LastName</td>
+                <td>@emp.BusinessPhone</td>
+            </tr>
+        }
+    </tbody>
+
+
+
+</table>
+
+
+@{
+
+    List<Employee> GetEmployees() => new northwindContext().Employees.ToList();
+
+    //List<Employee> employees() => new List<Employee>().ToList(); 
+
+
+}

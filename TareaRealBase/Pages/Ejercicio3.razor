@@ -1,0 +1,46 @@
+@page "/Ejercicio3"
+@using System.Collections.Generic;
+@using TareaRealBase.Models
+
+<h3>Ejercicio 3</h3>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th>
+                Pais
+            </th>
+            <th>
+               Cantidad de Cliente
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var cus in GetConsulta3())
+        {
+            <tr>
+                <td>@cus.name</td>
+                <td>@cus.count</td>
+                
+            </tr>
+        }
+    </tbody>
+
+
+
+</table>
+
+
+@{
+ 
+        
+     List<DataConsulta3> GetConsulta3() => (from e in new northwindContext().Employees
+                                            group e by e.City  into r
+                                            select new DataConsulta3{
+                                                name = r.Key, 
+                                                count = r.Count()
+                                            }).ToList();
+
+
+}

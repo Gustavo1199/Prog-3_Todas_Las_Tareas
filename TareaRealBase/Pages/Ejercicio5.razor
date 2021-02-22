@@ -1,0 +1,42 @@
+@page "/Ejercicio5"
+@using System.Collections.Generic;
+@using TareaRealBase.Models
+
+<h3>Ejercicio 4</h3>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th>
+                producto
+            </th>
+            <th>
+               Cantidad de Producto
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var cus in GetConsulta5())
+        {
+            <tr>
+                <td>@cus.producto</td>
+                <td>@cus.cantidad</td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+  northwindContext postContext = new northwindContext();
+  List<DataConsulta5> GetConsulta5() => (from p in postContext.Products
+                                          join o in postContext.OrderDetails
+                                          on p.Id equals o.ProductId
+                                          orderby o.Quantity descending
+                                          select new DataConsulta5{
+                                            producto = p.ProductName,
+                                            cantidad = o.Quantity
+                                          }).ToList();
+}

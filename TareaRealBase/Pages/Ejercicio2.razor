@@ -1,0 +1,44 @@
+@page "/Ejercicio2"
+@using Models
+
+<h3>Ejercicio2</h3>
+
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Productos
+            </th>
+            <th>
+                Precio
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (Product pruduc in GetPruduct())
+        {
+            <tr>
+                <td>@pruduc.Id</td>
+                <td>@pruduc.ProductName</td>
+                <td>@pruduc.ListPrice</td>
+            </tr>
+        }
+    </tbody>
+
+
+
+</table>
+
+
+@{
+
+    List<Product> GetPruduct() => new northwindContext().Products.OrderByDescending(p => p.ListPrice).Take(5).ToList();
+
+    //List<Employee> employees() => new List<Employee>().ToList(); 
+
+}

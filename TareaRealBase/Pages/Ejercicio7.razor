@@ -1,0 +1,41 @@
+@page "/Ejercicio7"
+@using System.Collections.Generic;
+@using TareaRealBase.Models
+
+<h3>Ejercicio 4</h3>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th>
+                Cantidad 
+            </th>
+           
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in GetConsulta())
+        {
+            cantidadx += item.cantidad;
+        }
+        <tr>
+            <td>@(cantidadx)</td>
+        </tr>
+    </tbody>
+
+
+
+</table>
+
+
+    @code {
+   decimal cantidadx = 0;
+    northwindContext get = new northwindContext();
+    List<DataConsulta7> GetConsulta() => (from od in get.OrderDetails
+                                            join o in get.Orders on od.OrderId equals o.Id
+                                            group od by od.Quantity into r
+                                            select new DataConsulta7 {
+                                                cantidad = r.Key
+                                            }).ToList();
+}
